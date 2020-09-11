@@ -46,23 +46,22 @@
                 </div>
         </div>
         <div>
-            <Country :json="json" v-if="json"></Country>
+           <Countries></Countries>
         </div>
     </div>
 </template>
 
 <script>
-import Country from '@/components/Country.vue'
+import Countries from '@/components/Countries.vue'
 
 export default {
     name: 'Main',
     components: {
-        Country
+        Countries
     },
     data() {
       return {
         query: "",
-        json: "",
         error: ""
       }
     },
@@ -73,7 +72,12 @@ export default {
                 return res.json();
             }).then(result => {
                 this.json = result;
-                console.log(this.json)
+                
+                const myStorage = window.localStorage;
+                myStorage.setItem('country', this.query);
+                this.$router.push({ path: 'country' });
+
+                // console.log(this.json)
             }).catch((err) => {
                 this.error = err;
             })

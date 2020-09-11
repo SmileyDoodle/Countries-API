@@ -1,0 +1,79 @@
+<template>
+  <div class="content-wrap">
+      <div class="card-wrap" v-for="data in json" :key="data.id">
+        <div class="box">
+          <div class="img-wrap">
+            <img :src="data.flag" alt="img" class="flag-wrap">
+          </div>
+          <div class="info-wrap">
+            <h1> {{data.name}} </h1>
+            <p><strong>Population:</strong> {{data.population}} </p>
+            <p><strong>Region:</strong> {{data.region}} </p>
+            <p><strong>Capital:</strong> {{data.capital}} </p>
+          </div>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+    name: 'Countries',
+    // props: ['json'],
+    data() {
+      return {
+        json: "",
+        countries: [],
+        error: ""
+      }
+    },
+    methods: {
+      getAllCountries(data) {
+        fetch(`https://restcountries.eu/rest/v2/all`)
+            .then(res => {
+                return res.json();
+            }).then(result => {
+                this.json = result;
+                console.log("json", this.json);
+                console.log("data", data)
+            }).catch((err) => {
+                this.error = err;
+            })
+      }
+    },
+    mounted() {
+      this.getAllCountries();
+    }
+}
+</script>
+
+<style>
+.content-wrap {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-flow: wrap;
+}
+.card-wrap {
+  width: 25%;
+  height: 270px;
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+.box {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.img-wrap {
+  height: 50%;
+}
+.flag-wrap {
+  height: 100%;
+}
+.info-wrap {
+  text-align: left;
+}
+</style>

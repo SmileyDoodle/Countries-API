@@ -3,40 +3,42 @@
     <Header></Header>
     <div class="main">
         <div>
-          <button>Back</button>
+          <router-link to="/">
+            <button class="button is-rounded">Back</button>
+          </router-link>
         </div>
       </div>
     <div class="country">
       <div class="one-flag-wrap">
         <img :src="json[0].flag" alt="img">
       </div>
-      <div>
-        <div>
-          <h1>{{json[0].name}}</h1>
+      <div class="statistics-wrap">
+        <div class="country-name">
+          <h1 class="has-text-weight-bold">{{json[0].name}}</h1>
         </div>
-        <div>
-          <div>
+        <div class="information-wrap">
+          <div class="data-wrap">
             <p><strong>Native Name:</strong> {{json[0].altSpellings[1]}}</p>
             <p><strong>Population:</strong> {{json[0].population}}</p>
             <p><strong>Region:</strong> {{json[0].region}}</p>
             <p><strong>Sub Region</strong> {{json[0].subregion}}</p>
             <p><strong>Capital:</strong> {{json[0].capital}}</p>
           </div>
-          <div>
+          <div class="data-wrap">
             <p><strong>Top Level Domain:</strong> {{json[0].topLevelDomain[0]}}</p>
-            <div>
-              <strong>Currencies:</strong> 
+            <div class="string-wrap">
+              <p><strong>Currencies: </strong></p>
               <p v-for="currency in json[0].currencies" :key="currency"> {{currency.name}}</p>
             </div>
-            <div>
-              <strong>Languages:</strong> 
+            <div class="string-wrap">
+              <p><strong>Languages: </strong></p>
               <p v-for="language in json[0].languages" :key="language"> {{language.name}}</p>
             </div>
           </div>
         </div>
-        <div>
-          <strong>Border Countries:</strong>
-          <p v-for="border in json[0].borders" :key="border"> {{border}}</p>
+        <div class="string-wrap">
+          <p><strong>Border Countries:</strong></p>
+          <p v-for="border in json[0].borders" :key="border"> {{border}} </p>
         </div>
       </div>
     </div>
@@ -84,10 +86,35 @@ export default {
 </script>
 
 <style>
-/* .oneCountry {
-  height: 100%;
-}
 .country {
-  height: 85%;
-} */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4rem 0;
+}
+.one-flag-wrap img{
+  height: 300px;
+}
+.statistics-wrap {
+  width: 40%;
+}
+.country-name h1 {
+  font-size: 2rem;
+  text-align: left;
+}
+.information-wrap {
+  display: flex;
+  text-align: left;
+  margin: 1.5rem 0;
+}
+.data-wrap {
+  width: 50%;
+}
+.data-wrap p {
+  font-size: 0.9rem;
+  padding: 0.2rem 0;
+}
+.string-wrap {
+  display: flex;
+} 
 </style>

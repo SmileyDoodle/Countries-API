@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrap">
-      <div class="card-wrap" v-for="data in json" :key="data.id">
+      <div class="card-wrap" v-for="data in changeRegion" :key="data.id">
         <div class="box">
           <div class="img-wrap">
             <img :src="data.flag" alt="img" class="flag-wrap">
@@ -19,12 +19,20 @@
 <script>
 export default {
     name: 'Countries',
-    // props: ['json'],
+    props: ['region'],
     data() {
       return {
         json: "",
-        countries: [],
         error: ""
+      }
+    },
+    computed: {
+      changeRegion: function() {
+        if (this.region === "") {
+          return this.json;
+        } else {
+          return this.region;
+        }
       }
     },
     methods: {
@@ -39,7 +47,8 @@ export default {
             }).catch((err) => {
                 this.error = err;
             })
-      }
+      },
+      
     },
     mounted() {
       this.getAllCountries();

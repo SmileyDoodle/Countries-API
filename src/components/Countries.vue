@@ -51,7 +51,7 @@ export default {
       goOnePage(countryName) {
             const myStorage = window.localStorage;
             myStorage.setItem('country', countryName);
-            this.$router.push({ path: 'country' });
+            this.$router.push({ path: `country/${countryName}`});
       }
     },
     mounted() {

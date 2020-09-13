@@ -64,9 +64,9 @@ export default {
     },
     methods: {
       getCountry() {
-          let myCountry = window.localStorage.getItem('country');
-
-          fetch(`https://restcountries.eu/rest/v2/name/${myCountry}`)
+          const name = this.$route.params.name;
+          
+          fetch(`https://restcountries.eu/rest/v2/name/${name}`)
               .then(res => {
                   return res.json();
               }).then(result => {
@@ -78,9 +78,7 @@ export default {
       },
     },
     mounted() {
-      if (this.myCountry !== "") {
         this.getCountry();
-      }
     }
 }
 </script>

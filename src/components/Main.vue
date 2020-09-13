@@ -70,9 +70,7 @@ export default {
     },
     methods: {
       getCountry() {
-            const myStorage = window.localStorage;
-            myStorage.setItem('country', this.query);
-            this.$router.push({ path: 'country' });
+            this.$router.push({ path: `country/${this.query}` });
       },
       getRegion(region) {
         this.selectedValue = region;

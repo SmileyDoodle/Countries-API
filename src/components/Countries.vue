@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrap">
-      <div class="card-wrap" v-for="data in changeRegion" :key="data.id">
+      <div class="card-wrap" v-for="data in changeRegion" :key="data.id" @click="goOnePage(data.name)">
         <div class="box">
           <div class="img-wrap">
             <img :src="data.flag" alt="img" class="flag-wrap">
@@ -42,13 +42,17 @@ export default {
                 return res.json();
             }).then(result => {
                 this.json = result;
-                console.log("json", this.json);
+                // console.log("json", this.json);
                 console.log("data", data)
             }).catch((err) => {
                 this.error = err;
             })
       },
-      
+      goOnePage(countryName) {
+            const myStorage = window.localStorage;
+            myStorage.setItem('country', countryName);
+            this.$router.push({ path: 'country' });
+      }
     },
     mounted() {
       this.getAllCountries();

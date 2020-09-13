@@ -8,7 +8,7 @@
           </router-link>
         </div>
       </div>
-    <div class="country">
+    <div class="country" v-if="json[0]">
       <div class="one-flag-wrap">
         <img :src="json[0].flag" alt="img">
       </div>
@@ -28,11 +28,11 @@
             <p><strong>Top Level Domain:</strong> {{json[0].topLevelDomain[0]}}</p>
             <div class="string-wrap">
               <p><strong>Currencies: </strong></p>
-              <p v-for="currency in json[0].currencies" :key="currency"> {{currency.name}}</p>
+              <p v-for="currency in json[0].currencies" :key="currency.name"> {{currency.name}}</p>
             </div>
             <div class="string-wrap">
               <p><strong>Languages: </strong></p>
-              <p v-for="language in json[0].languages" :key="language"> {{language.name}}</p>
+              <p v-for="language in json[0].languages" :key="language.name"> {{language.name}}</p>
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default {
               }).catch((err) => {
                   this.error = err;
               })
-      }  
+      },
     },
     mounted() {
       if (this.myCountry !== "") {

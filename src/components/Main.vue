@@ -21,23 +21,23 @@
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                            <a href="#" class="dropdown-item" @click="getRegion('africa')">
+                            <a href="#" class="dropdown-item" @click="getRegion('africa')" :class="{'is-active': selectedValue === 'africa'}">
                                 Africa
                             </a>
-                            <a href="#" class="dropdown-item" @click="getRegion('americas')">
+                            <a href="#" class="dropdown-item" @click="getRegion('americas')" :class="{'is-active': selectedValue === 'americas'}">
                                 America
                             </a>
-                            <a href="#" class="dropdown-item" @click="getRegion('asia')">
+                            <a href="#" class="dropdown-item" @click="getRegion('asia')" :class="{'is-active': selectedValue === 'asia'}">
                                 Asia
                             </a>
-                            <a href="#" class="dropdown-item" @click="getRegion('europe')">
+                            <a href="#" class="dropdown-item" @click="getRegion('europe')" :class="{'is-active': selectedValue === 'europe'}">
                                 Europe
                             </a>
-                            <a href="#" class="dropdown-item" @click="getRegion('oceania')">
+                            <a href="#" class="dropdown-item" @click="getRegion('oceania')" :class="{'is-active': selectedValue === 'oceania'}">
                                 Oceania
                             </a>
                             <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item" @click="getAllCountries()">
+                            <a href="#" class="dropdown-item" @click="getAllCountries()" :class="{'is-active': selectedValue === 'all' || selectedValue === ''}">
                                 All
                             </a>
                         </div>
@@ -64,44 +64,36 @@ export default {
         json: "",
         error: "",
         showDrop: false,
-        region: ""
+        region: "",
+        selectedValue: ""
       }
     },
     methods: {
       getCountry() {
-        fetch(`https://restcountries.eu/rest/v2/name/${this.query}`)
-            .then(res => {
-                return res.json();
-            }).then(result => {
-                this.json = result;
-                
-                const myStorage = window.localStorage;
-                myStorage.setItem('country', this.query);
-                this.$router.push({ path: 'country' });
-
-                // console.log(this.json)
-            }).catch((err) => {
-                this.error = err;
-            })
+            const myStorage = window.localStorage;
+            myStorage.setItem('country', this.query);
+            this.$router.push({ path: 'country' });
       },
       getRegion(region) {
+        this.selectedValue = region;
         fetch(`https://restcountries.eu/rest/v2/region/${region}`)
             .then(res => {
                 return res.json();
             }).then(result => {
                 this.region = result;
-                console.log(this.region);
+                // console.log(this.region);
             }).catch((err) => {
                 this.error = err;
             })
       },
       getAllCountries() {
+        this.selectedValue = "all";
         fetch(`https://restcountries.eu/rest/v2/all`)
             .then(res => {
                 return res.json();
             }).then(result => {
                 this.region = result;
-                console.log("json", this.json);
+                // console.log("json", this.json);
             }).catch((err) => {
                 this.error = err;
             })

@@ -19,7 +19,7 @@
         <div class="information-wrap">
           <div class="data-wrap">
             <p><strong>Native Name:</strong> {{json[0].altSpellings[1]}}</p>
-            <p><strong>Population:</strong> {{json[0].population}}</p>
+            <p><strong>Population:</strong> {{json[0].population.toLocaleString("en")}}</p>
             <p><strong>Region:</strong> {{json[0].region}}</p>
             <p><strong>Sub Region</strong> {{json[0].subregion}}</p>
             <p><strong>Capital:</strong> {{json[0].capital}}</p>
@@ -37,8 +37,9 @@
           </div>
         </div>
         <div class="string-wrap">
-          <p><strong>Border Countries:</strong></p>
-          <p v-for="border in json[0].borders" :key="border"> {{border}} </p>
+          <p><strong>Border Countries: </strong></p>
+          <p> {{ borders }} </p>
+          <!-- <p v-for="borders in gettingBorderCountries" :key="borders"> {{border.name}} </p> -->
         </div>
       </div>
     </div>
@@ -59,7 +60,8 @@ export default {
     data() {
       return {
         json: "",
-        error: ""
+        error: "",
+        borders: ""
       }
     },
     methods: {
@@ -72,10 +74,34 @@ export default {
               }).then(result => {
                   this.json = result;
                   console.log(this.json)
+                  this.getBorderCountries(this.json[0].borders)
               }).catch((err) => {
                   this.error = err;
               })
       },
+      getBorderCountries(borders) {
+
+        const codes = borders.join(';')
+        
+        fetch(`https://restcountries.eu/rest/v2/alpha?codes=${codes}`)
+              .then(res => {
+                  return res.json();
+              // eslint-disable-next-line no-unused-vars
+              }).then(result => {
+
+                  let borderCountries = [];
+                  for (let i = 0; i< result.length; i++) {
+                    borderCountries.push(result[i].name);
+                  }
+                  console.log('borders ', borderCountries)
+                  this.borders =  borderCountries.join(', ');
+
+              }).catch((err) => {
+                  this.error = err;
+              })
+      
+      }
+      
     },
     mounted() {
         this.getCountry();

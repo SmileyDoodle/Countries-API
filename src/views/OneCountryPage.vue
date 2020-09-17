@@ -28,11 +28,13 @@
             <p><strong>Top Level Domain:</strong> {{json[0].topLevelDomain[0]}}</p>
             <div class="string-wrap">
               <p><strong>Currencies: </strong></p>
-              <p v-for="currency in json[0].currencies" :key="currency.name"> {{currency.name}}</p>
+              <!-- <p v-for="currency in json[0].currencies" :key="currency.name"> {{currency.name}}</p> -->
+              <p> {{this.money}} </p>
             </div>
             <div class="string-wrap">
               <p><strong>Languages: </strong></p>
-              <p v-for="language in json[0].languages" :key="language.name"> {{language.name}}</p>
+              <!-- <p v-for="language in json[0].languages" :key="language.name"> {{language.name}}</p> -->
+              <p> {{this.names}} </p>
             </div>
           </div>
         </div>
@@ -61,7 +63,9 @@ export default {
       return {
         json: "",
         error: "",
-        borders: ""
+        borders: "",
+        names: "",
+        money: ""
       }
     },
     methods: {
@@ -74,7 +78,9 @@ export default {
               }).then(result => {
                   this.json = result;
                   console.log(this.json)
-                  this.getBorderCountries(this.json[0].borders)
+                  this.getBorderCountries(this.json[0].borders);
+                  this.getCurrencies();
+                  this.getLanguages();
               }).catch((err) => {
                   this.error = err;
               })
@@ -99,9 +105,27 @@ export default {
               }).catch((err) => {
                   this.error = err;
               })
-      
+      },
+      getCurrencies() {
+        
+        let currencies = this.json[0].currencies;
+
+        this.money = currencies.map(function(item) {
+          return item['name'];
+        });
+        console.log("money", this.money)
+        this.money = this.money.join(', ');
+      },
+      getLanguages() {
+
+        let languages = this.json[0].languages;
+
+        this.names = languages.map(function(item) {
+          return item['name'];
+        });
+        console.log("names", this.names)
+        this.names = this.names.join(', ');
       }
-      
     },
     mounted() {
         this.getCountry();
@@ -118,6 +142,7 @@ export default {
 }
 .one-flag-wrap img{
   height: 300px;
+  box-shadow: 0px 0px 19px 4px #cde2e6;
 }
 .statistics-wrap {
   width: 40%;
@@ -140,5 +165,11 @@ export default {
 }
 .string-wrap {
   display: flex;
-} 
+}
+.string-wrap p:first-child {
+  margin-right: 0.3rem;
+}
+.string-wrap:last-child p {
+  text-align: left;
+}
 </style>

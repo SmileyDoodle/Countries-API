@@ -85,6 +85,7 @@ export default {
 }
 .flag-wrap {
   height: 100%;
+  box-shadow: 0px 0px 14px -5px #cde2e6;
 }
 .info-wrap {
   text-align: left;

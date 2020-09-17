@@ -19,5 +19,6 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 3rem;
+    margin-top: 2rem;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="main">
-            <div>
+            <div class="input-wrap">
                 <input 
                     type="text" 
                     class="input is-rounded"
@@ -9,6 +9,9 @@
                     v-model="query"
                     @keyup.enter="getCountry()"
                 />
+                <div class="hidden-wrap" v-show="isSeen">
+                    <h1 class="has-text-weight-bold"> Can't find the country. Try again!</h1>
+                </div>
             </div>
             <div id="overlay" v-if="showDrop" @click="showDrop = !showDrop"></div>
             <div class="dropdown" @click="showDrop = !showDrop" :class="{ 'is-active': showDrop }">
@@ -65,13 +68,25 @@ export default {
         json: "",
         error: "",
         showDrop: false,
+        isSeen: false,
         region: "",
         selectedValue: ""
       }
     },
     methods: {
       getCountry() {
-            this.$router.push({ path: `country/${this.query}` });
+            
+            fetch(`https://restcountries.eu/rest/v2/name/${this.query}`)
+              .then(res => {
+                  return res.json();
+              }).then(result => {
+
+                  if (result.status) {
+                      this.isSeen = true;
+                  } else {
+                      this.$router.push({ path: `country/${this.query}` });
+                  }
+              })
       },
       getRegion(region) {
         this.selectedValue = region;
@@ -111,6 +126,19 @@ export default {
     z-index: 0;
 }
 
+.input {
+    width: 250px;
+}
+.input-wrap {
+    display: flex;
+    width: 551px;
+    align-items: center;
+}
+.hidden-wrap {
+    width: 300px;
+    font-size: 1.1rem;
+    color: red;
+}
 .main {
     widows: 100%;
     display: flex;

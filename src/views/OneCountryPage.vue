@@ -39,9 +39,8 @@
           </div>
         </div>
         <div class="string-wrap">
-          <p><strong>Border Countries: </strong></p>
+          <p><strong class="border-string">Border Countries: </strong></p>
           <p> {{ borders }} </p>
-          <!-- <p v-for="borders in gettingBorderCountries" :key="borders"> {{border.name}} </p> -->
         </div>
       </div>
     </div>
@@ -92,7 +91,6 @@ export default {
         fetch(`https://restcountries.eu/rest/v2/alpha?codes=${codes}`)
               .then(res => {
                   return res.json();
-              // eslint-disable-next-line no-unused-vars
               }).then(result => {
 
                   let borderCountries = [];
@@ -107,7 +105,6 @@ export default {
               })
       },
       getCurrencies() {
-        
         let currencies = this.json[0].currencies;
 
         this.money = currencies.map(function(item) {
@@ -117,7 +114,6 @@ export default {
         this.money = this.money.join(', ');
       },
       getLanguages() {
-
         let languages = this.json[0].languages;
 
         this.names = languages.map(function(item) {
@@ -142,6 +138,7 @@ export default {
 }
 .one-flag-wrap img{
   height: 300px;
+  max-width: 500px;
   box-shadow: 0px 0px 19px 4px #cde2e6;
 }
 .statistics-wrap {
@@ -171,5 +168,10 @@ export default {
 }
 .string-wrap:last-child p {
   text-align: left;
+  font-size: 0.9rem;
+}
+.border-string {
+  display: block;
+  width: 121px;
 }
 </style>

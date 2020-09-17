@@ -10,6 +10,7 @@
                     @keyup.enter="getCountry()"
                 />
             </div>
+            <div id="overlay" v-if="showDrop" @click="showDrop = !showDrop"></div>
             <div class="dropdown" @click="showDrop = !showDrop" :class="{ 'is-active': showDrop }">
                 <div class="dropdown-trigger">
                         <button class="button is-rounded" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -101,13 +102,25 @@ export default {
 </script>
 
 <style>
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
 .main {
     widows: 100%;
     display: flex;
     height: 100px;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5rem;
+    padding: 0 3rem;
+}
+.dropdown {
+    z-index: 1;
 }
 .dropdown-content a {
     text-align: left;

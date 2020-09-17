@@ -7,7 +7,7 @@
           </div>
           <div class="info-wrap">
             <h1> {{data.name}} </h1>
-            <p><strong>Population:</strong> {{data.population}} </p>
+            <p><strong>Population:</strong> {{data.population.toLocaleString("en")}} </p>
             <p><strong>Region:</strong> {{data.region}} </p>
             <p><strong>Capital:</strong> {{data.capital}} </p>
           </div>
@@ -69,13 +69,13 @@ export default {
 }
 .card-wrap {
   width: 25%;
-  height: 270px;
+  height: 275px;
   display: flex;
   justify-content: center;
   margin: 1rem 0;
 }
 .box {
-  width: 65%;
+  width: 75%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

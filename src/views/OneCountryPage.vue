@@ -2,7 +2,7 @@
   <div class="oneCountry">
     <Header></Header>
     <div class="main">
-        <div>
+        <div class="back-button">
           <router-link to="/">
             <button class="button is-rounded">Back</button>
           </router-link>
@@ -132,29 +132,28 @@ export default {
 <style>
 .country {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  padding: 4rem 0;
+  padding: 0 0 2 rem;
 }
 .one-flag-wrap img{
-  height: 300px;
-  max-width: 500px;
+  height: 210px;
   box-shadow: 0px 0px 19px 4px #cde2e6;
 }
 .statistics-wrap {
-  width: 40%;
+  width: 75%;
+  margin-top: 2rem;
 }
 .country-name h1 {
-  font-size: 2rem;
-  text-align: left;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .information-wrap {
-  display: flex;
   text-align: left;
   margin: 1.5rem 0;
 }
 .data-wrap {
-  width: 50%;
+  width: 100%;
 }
 .data-wrap p {
   font-size: 0.9rem;
@@ -172,6 +171,38 @@ export default {
 }
 .border-string {
   display: block;
-  width: 121px;
+  width: 120px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .country {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 4rem 0;
+  }
+  .one-flag-wrap img{
+    height: 300px;
+    max-width: 500px;
+  }
+  .statistics-wrap {
+    width: 40%;
+    margin-top: 0;
+  }
+  .country-name h1 {
+    font-size: 2rem;
+    text-align: left;
+    margin-bottom: 0;
+  }
+  .information-wrap {
+    display: flex;
+  }
+  .data-wrap {
+    width: 50%;
+  }
+  .border-string {
+    width: 121px;
+  }
 }
 </style>

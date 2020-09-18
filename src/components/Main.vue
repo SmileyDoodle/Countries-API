@@ -126,31 +126,73 @@ export default {
     z-index: 0;
 }
 
-.input {
-    width: 250px;
-}
-.input-wrap {
-    display: flex;
-    width: 551px;
-    align-items: center;
-}
-.hidden-wrap {
-    width: 300px;
-    font-size: 1.1rem;
-    color: red;
-}
 .main {
-    widows: 100%;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     height: 100px;
     justify-content: space-between;
     align-items: center;
-    padding: 0 3rem;
+}
+.input-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60px;
+    width: 65%;
+}
+.input {
+    width: 100%;
+}
+.hidden-wrap {
+    width: 100%;
+    font-size: 0.7rem;
+    color: red;
 }
 .dropdown {
     z-index: 1;
+    width: 65%;
+    justify-content: center;
 }
-.dropdown-content a {
-    text-align: left;
+
+@media only screen and (min-width: 1024px) {
+    #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+    }
+
+    .main {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 100px;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 3rem;
+    }
+    .input-wrap {
+        display: flex;
+        flex-direction: row;
+        width: 551px;
+        align-items: center;
+    }
+    .input {
+        width: 250px;
+    }
+    .hidden-wrap {
+        width: 300px;
+        font-size: 1.1rem;
+        color: red;
+    }
+    .dropdown {
+        justify-content: flex-end;
+    }
+    .dropdown-content a {
+        text-align: left;
+    }
 }
 </style>

@@ -68,11 +68,11 @@ export default {
   flex-flow: wrap;
 }
 .card-wrap {
-  width: 25%;
-  height: 275px;
+  width: 100%;
+  height: 325px;
   display: flex;
   justify-content: center;
-  margin: 1rem 0;
+  margin: 3rem 0;
 }
 .box {
   width: 75%;
@@ -81,7 +81,7 @@ export default {
   justify-content: space-between;
 }
 .img-wrap {
-  height: 50%;
+  height: 63%;
 }
 .flag-wrap {
   height: 100%;
@@ -89,5 +89,22 @@ export default {
 }
 .info-wrap {
   text-align: left;
+}
+
+@media only screen and (min-width: 1024px) {
+  .card-wrap {
+    width: 25%;
+    height: 275px;
+    margin: 1rem 0;
+  }
+  .box {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .img-wrap {
+    height: 50%;
+  }
 }
 </style>

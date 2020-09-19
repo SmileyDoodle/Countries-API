@@ -12,7 +12,7 @@ export default {
 
 <style>
 .footer {
-    background-color: #fff;
+    background-color: var(--bg-color);
     padding-bottom: 1rem;
 }
 .footer p {

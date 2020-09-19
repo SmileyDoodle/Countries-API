@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <main>
         <div class="main">
             <div class="input-wrap">
                 <input 
@@ -51,7 +51,7 @@
         <div>
            <Countries :region="region"></Countries>
         </div>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -143,6 +143,9 @@ export default {
 }
 .input {
     width: 100%;
+    background-color: var(--secondary-color);
+    border-color: var(--border-color);
+    color: var(--input-text);
 }
 .hidden-wrap {
     width: 100%;
@@ -153,6 +156,21 @@ export default {
     z-index: 1;
     width: 65%;
     justify-content: center;
+}
+.dropdown-menu {
+    left: unset;
+}
+.dropdown-content {
+    text-align: left;
+    background-color: var(--secondary-color);
+}
+
+.dropdown-item {
+    color: var(--font-color);
+}
+.button {
+    background-color: var(--secondary-color);
+    border-color: var(--border-color);
 }
 
 @media only screen and (min-width: 1024px) {
@@ -182,6 +200,7 @@ export default {
     }
     .input {
         width: 250px;
+        color: var(--input-text);
     }
     .hidden-wrap {
         width: 300px;

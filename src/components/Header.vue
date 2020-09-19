@@ -1,9 +1,11 @@
 <template>
   <header>
       <h1 class="has-text-weight-bold">Where in the world?</h1>
-      <div class="dark-mode">
-          <i class="far fa-moon"></i>
-          <button class="dark-button">Dark Mode</button>
+      <div class="dark-mode" @click="switchTheme()">
+          <button class="dark-button">
+            <i class="fas fa-moon"></i>
+              {{ chosenTheme  ? 'Light' : 'Dark'}} Mode
+        </button>
       </div>
   </header>
 </template>
@@ -11,7 +13,24 @@
 <script>
 export default {
     name: 'Header',
+    data() {
+      return {
+        chosenTheme: false,
+      }
+    },
+    methods: {
+        switchTheme() {
+            this.chosenTheme = !this.chosenTheme;
+            if (this.chosenTheme) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+            else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }  
+        },
+    }
 }
+
 </script>
 
 <style>
@@ -27,11 +46,13 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .dark-button {
     border: none;
     background-color: transparent;
     font-size: 0.9rem;
+    cursor: pointer;
 }
 .dark-button:focus {
     outline: none;

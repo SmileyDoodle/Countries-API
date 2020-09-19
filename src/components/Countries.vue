@@ -6,7 +6,7 @@
             <img :src="data.flag" alt="img" class="flag-wrap">
           </div>
           <div class="info-wrap">
-            <h1> {{data.name}} </h1>
+            <h1><strong> {{data.name}} </strong></h1>
             <p><strong>Population:</strong> {{data.population.toLocaleString("en")}} </p>
             <p><strong>Region:</strong> {{data.region}} </p>
             <p><strong>Capital:</strong> {{data.capital}} </p>
@@ -85,10 +85,15 @@ export default {
 }
 .flag-wrap {
   height: 100%;
-  box-shadow: 0px 0px 14px -5px #cde2e6;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  /* box-shadow: 0px 0px 14px -5px #cde2e6; */
 }
 .info-wrap {
   text-align: left;
+}
+
+.box {
+  background-color: var(--secondary-color);
 }
 
 @media only screen and (min-width: 1024px) {

@@ -1,6 +1,5 @@
 <template>
-  <div class="oneCountry">
-    <Header></Header>
+  <main class="oneCountry">
     <div class="main">
         <div class="back-button">
           <router-link to="/">
@@ -44,20 +43,12 @@
         </div>
       </div>
     </div>
-    <Footer></Footer>
-  </div>
+  </main>
 </template>
 
 <script>
-import Header from '@/components/Header.vue'
-import Footer from '@/components/Footer.vue'
-
 export default {
     name: 'OneCountryPage',
-    components: {
-      Header,
-      Footer
-    },
     data() {
       return {
         json: "",
@@ -138,7 +129,9 @@ export default {
 }
 .one-flag-wrap img{
   height: 210px;
-  box-shadow: 0px 0px 19px 4px #cde2e6;
+  max-width: 80%;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  /* box-shadow: 0px 0px 19px 4px #cde2e6; */
 }
 .statistics-wrap {
   width: 75%;
@@ -172,6 +165,9 @@ export default {
 .border-string {
   display: block;
   width: 120px;
+}
+.button {
+  color: var(--font-color);
 }
 
 @media only screen and (min-width: 1024px) {

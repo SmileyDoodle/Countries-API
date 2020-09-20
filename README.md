@@ -1,24 +1,10 @@
-# countries
+# REST API Countries
 
-## Project setup
-```
-npm install
-```
+- Build with Vue.js
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- Desktop and mobile responsive layouts
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- light and dark mode support
 
-### Lints and fixes files
-```
-npm run lint
-```
+- restcountries.eu
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

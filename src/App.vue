@@ -49,6 +49,7 @@ html {
   color: #42b983;
 }
 
+
 /* Overwrite for dark-theme */
 strong {
   color: var(--font-color);

@@ -67,7 +67,6 @@ export default {
                   return res.json();
               }).then(result => {
                   this.json = result;
-                  console.log(this.json)
                   this.getBorderCountries(this.json[0].borders);
                   this.getCurrencies();
                   this.getLanguages();
@@ -78,22 +77,20 @@ export default {
       getBorderCountries(borders) {
 
         const codes = borders.join(';')
-        
+        if (codes) {
         fetch(`https://restcountries.eu/rest/v2/alpha?codes=${codes}`)
               .then(res => {
                   return res.json();
               }).then(result => {
-
                   let borderCountries = [];
                   for (let i = 0; i< result.length; i++) {
                     borderCountries.push(result[i].name);
                   }
-                  console.log('borders ', borderCountries)
                   this.borders =  borderCountries.join(', ');
-
               }).catch((err) => {
                   this.error = err;
               })
+        }
       },
       getCurrencies() {
         let currencies = this.json[0].currencies;
@@ -101,7 +98,6 @@ export default {
         this.money = currencies.map(function(item) {
           return item['name'];
         });
-        console.log("money", this.money)
         this.money = this.money.join(', ');
       },
       getLanguages() {
@@ -110,7 +106,6 @@ export default {
         this.names = languages.map(function(item) {
           return item['name'];
         });
-        console.log("names", this.names)
         this.names = this.names.join(', ');
       }
     },

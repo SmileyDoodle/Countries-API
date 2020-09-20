@@ -95,7 +95,6 @@ export default {
                 return res.json();
             }).then(result => {
                 this.region = result;
-                // console.log(this.region);
             }).catch((err) => {
                 this.error = err;
             })
@@ -107,7 +106,6 @@ export default {
                 return res.json();
             }).then(result => {
                 this.region = result;
-                // console.log("json", this.json);
             }).catch((err) => {
                 this.error = err;
             })
@@ -182,7 +180,6 @@ export default {
         width: 100%;
         z-index: 0;
     }
-
     .main {
         width: 100%;
         display: flex;

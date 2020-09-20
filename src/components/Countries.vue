@@ -36,14 +36,12 @@ export default {
       }
     },
     methods: {
-      getAllCountries(data) {
+      getAllCountries() {
         fetch(`https://restcountries.eu/rest/v2/all`)
             .then(res => {
                 return res.json();
             }).then(result => {
                 this.json = result;
-                // console.log("json", this.json);
-                console.log("data", data)
             }).catch((err) => {
                 this.error = err;
             })
@@ -86,12 +84,10 @@ export default {
 .flag-wrap {
   height: 100%;
   box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
-  /* box-shadow: 0px 0px 14px -5px #cde2e6; */
 }
 .info-wrap {
   text-align: left;
 }
-
 .box {
   background-color: var(--secondary-color);
 }

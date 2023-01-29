@@ -1,61 +1,75 @@
 <template>
   <div class="content-wrap">
-      <div class="card-wrap" v-for="data in changeRegion" :key="data.id" @click="goOnePage(data.name)">
-        <div class="box">
-          <div class="img-wrap">
-            <img :src="data.flag" alt="img" class="flag-wrap">
-          </div>
-          <div class="info-wrap">
-            <h1><strong> {{data.name}} </strong></h1>
-            <p><strong>Population:</strong> {{data.population.toLocaleString("en")}} </p>
-            <p><strong>Region:</strong> {{data.region}} </p>
-            <p><strong>Capital:</strong> {{data.capital}} </p>
-          </div>
+    <div
+      class="card-wrap"
+      v-for="data in changeRegion"
+      :key="data.id"
+      @click="goOnePage(data.name)"
+    >
+      <div class="box">
+        <div class="img-wrap">
+          <img :src="data.flags.svg" alt="img" class="flag-wrap" />
+        </div>
+        <div class="info-wrap">
+          <h1>
+            <strong> {{ data.name.official }} </strong>
+          </h1>
+          <p>
+            <strong>Population:</strong>
+            {{ data.population.toLocaleString("en") }}
+          </p>
+          <p><strong>Region:</strong> {{ data.region }}</p>
+          <p v-if="data.capital">
+            <strong>Capital:</strong> {{ data.capital[0] }}
+          </p>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'Countries',
-    props: ['region'],
-    data() {
-      return {
-        json: "",
-        error: ""
+  name: "Countries",
+  props: ["region"],
+  data() {
+    return {
+      json: "",
+      error: "",
+    };
+  },
+  computed: {
+    changeRegion: function() {
+      if (this.region === "") {
+        return this.json;
+      } else {
+        return this.region;
       }
     },
-    computed: {
-      changeRegion: function() {
-        if (this.region === "") {
-          return this.json;
-        } else {
-          return this.region;
-        }
-      }
+  },
+  methods: {
+    getAllCountries() {
+      fetch(`https://restcountries.com/v3.1/all`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((result) => {
+          this.json = result;
+        })
+        .catch((err) => {
+          this.error = err;
+        });
     },
-    methods: {
-      getAllCountries() {
-        fetch(`https://restcountries.eu/rest/v2/all`)
-            .then(res => {
-                return res.json();
-            }).then(result => {
-                this.json = result;
-            }).catch((err) => {
-                this.error = err;
-            })
-      },
-      goOnePage(countryName) {
-            const myStorage = window.localStorage;
-            myStorage.setItem('country', countryName);
-            this.$router.push({ path: `country/${countryName}`});
-      }
+    goOnePage(countryName) {
+      const myStorage = window.localStorage;
+      myStorage.setItem("country", countryName);
+      this.$router.push({ path: `country/${countryName}` });
     },
-    mounted() {
-      this.getAllCountries();
-    }
-}
+  },
+  mounted() {
+    this.getAllCountries();
+  },
+};
 </script>
 
 <style>
@@ -83,7 +97,8 @@ export default {
 }
 .flag-wrap {
   height: 100%;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
 }
 .info-wrap {
   text-align: left;

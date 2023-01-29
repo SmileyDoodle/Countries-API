@@ -1,45 +1,50 @@
 <template>
   <main class="oneCountry">
     <div class="main">
-        <div class="back-button">
-          <router-link to="/">
-            <button class="button is-rounded">Back</button>
-          </router-link>
-        </div>
+      <div class="back-button">
+        <router-link to="/">
+          <button class="button is-rounded">Back</button>
+        </router-link>
       </div>
+    </div>
     <div class="country" v-if="json[0]">
       <div class="one-flag-wrap">
-        <img :src="json[0].flag" alt="img">
+        <img :src="json[0].flag" alt="img" />
       </div>
       <div class="statistics-wrap">
         <div class="country-name">
-          <h1 class="has-text-weight-bold">{{json[0].name}}</h1>
+          <h1 class="has-text-weight-bold">{{ json[0].name }}</h1>
         </div>
         <div class="information-wrap">
           <div class="data-wrap">
-            <p><strong>Native Name:</strong> {{json[0].altSpellings[1]}}</p>
-            <p><strong>Population:</strong> {{json[0].population.toLocaleString("en")}}</p>
-            <p><strong>Region:</strong> {{json[0].region}}</p>
-            <p><strong>Sub Region</strong> {{json[0].subregion}}</p>
-            <p><strong>Capital:</strong> {{json[0].capital}}</p>
+            <p><strong>Native Name:</strong> {{ json[0].altSpellings[1] }}</p>
+            <p>
+              <strong>Population:</strong>
+              {{ json[0].population.toLocaleString("en") }}
+            </p>
+            <p><strong>Region:</strong> {{ json[0].region }}</p>
+            <p><strong>Sub Region</strong> {{ json[0].subregion }}</p>
+            <p><strong>Capital:</strong> {{ json[0].capital }}</p>
           </div>
           <div class="data-wrap">
-            <p><strong>Top Level Domain:</strong> {{json[0].topLevelDomain[0]}}</p>
+            <p>
+              <strong>Top Level Domain:</strong> {{ json[0].topLevelDomain[0] }}
+            </p>
             <div class="string-wrap">
               <p><strong>Currencies: </strong></p>
               <!-- <p v-for="currency in json[0].currencies" :key="currency.name"> {{currency.name}}</p> -->
-              <p> {{this.money}} </p>
+              <p>{{ this.money }}</p>
             </div>
             <div class="string-wrap">
               <p><strong>Languages: </strong></p>
               <!-- <p v-for="language in json[0].languages" :key="language.name"> {{language.name}}</p> -->
-              <p> {{this.names}} </p>
+              <p>{{ this.names }}</p>
             </div>
           </div>
         </div>
         <div class="string-wrap">
           <p><strong class="border-string">Border Countries: </strong></p>
-          <p> {{ borders }} </p>
+          <p>{{ borders }}</p>
         </div>
       </div>
     </div>
@@ -48,71 +53,74 @@
 
 <script>
 export default {
-    name: 'OneCountryPage',
-    data() {
-      return {
-        json: "",
-        error: "",
-        borders: "",
-        names: "",
-        money: ""
+  name: "OneCountryPage",
+  data() {
+    return {
+      json: "",
+      error: "",
+      borders: "",
+      names: "",
+      money: "",
+    };
+  },
+  methods: {
+    getCountry() {
+      const name = this.$route.params.name;
+
+      fetch(`https://restcountries.com/v3.1/name/${name}`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((result) => {
+          this.json = result;
+          this.getBorderCountries(this.json[0].borders);
+          this.getCurrencies();
+          this.getLanguages();
+        })
+        .catch((err) => {
+          this.error = err;
+        });
+    },
+    getBorderCountries(borders) {
+      const codes = borders.join(";");
+      if (codes) {
+        fetch(`https://restcountries.com/v3.1/alpha/${codes}`)
+          .then((res) => {
+            return res.json();
+          })
+          .then((result) => {
+            let borderCountries = [];
+            for (let i = 0; i < result.length; i++) {
+              borderCountries.push(result[i].name);
+            }
+            this.borders = borderCountries.join(", ");
+          })
+          .catch((err) => {
+            this.error = err;
+          });
       }
     },
-    methods: {
-      getCountry() {
-          const name = this.$route.params.name;
-          
-          fetch(`https://restcountries.eu/rest/v2/name/${name}`)
-              .then(res => {
-                  return res.json();
-              }).then(result => {
-                  this.json = result;
-                  this.getBorderCountries(this.json[0].borders);
-                  this.getCurrencies();
-                  this.getLanguages();
-              }).catch((err) => {
-                  this.error = err;
-              })
-      },
-      getBorderCountries(borders) {
+    getCurrencies() {
+      let currencies = this.json[0].currencies;
 
-        const codes = borders.join(';')
-        if (codes) {
-        fetch(`https://restcountries.eu/rest/v2/alpha?codes=${codes}`)
-              .then(res => {
-                  return res.json();
-              }).then(result => {
-                  let borderCountries = [];
-                  for (let i = 0; i< result.length; i++) {
-                    borderCountries.push(result[i].name);
-                  }
-                  this.borders =  borderCountries.join(', ');
-              }).catch((err) => {
-                  this.error = err;
-              })
-        }
-      },
-      getCurrencies() {
-        let currencies = this.json[0].currencies;
-
-        this.money = currencies.map(function(item) {
-          return item['name'];
-        });
-        this.money = this.money.join(', ');
-      },
-      getLanguages() {
-        let languages = this.json[0].languages;
-
-        this.names = languages.map(function(item) {
-          return item['name'];
-        });
-        this.names = this.names.join(', ');
-      }
+      this.money = currencies.map(function(item) {
+        return item["name"];
+      });
+      this.money = this.money.join(", ");
     },
-    mounted() {
-        this.getCountry();
-    }
-}
+    getLanguages() {
+      let languages = this.json[0].languages;
+
+      this.names = languages.map(function(item) {
+        return item["name"];
+      });
+      this.names = this.names.join(", ");
+    },
+  },
+  mounted() {
+    this.getCountry();
+  },
+};
 </script>
 
 <style>
@@ -122,10 +130,11 @@ export default {
   align-items: center;
   padding: 0 0 2 rem;
 }
-.one-flag-wrap img{
+.one-flag-wrap img {
   height: 210px;
   max-width: 80%;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0 0 1px rgba(10, 10, 10, 0.02);
   /* box-shadow: 0px 0px 19px 4px #cde2e6; */
 }
 .statistics-wrap {
@@ -167,13 +176,13 @@ export default {
 
 @media only screen and (min-width: 1024px) {
   .country {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  padding: 4rem 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4rem 0;
   }
-  .one-flag-wrap img{
+  .one-flag-wrap img {
     height: 300px;
     max-width: 500px;
   }

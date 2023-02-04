@@ -4,21 +4,21 @@
       class="card-wrap"
       v-for="data in changeRegion"
       :key="data.id"
-      @click="goOnePage(data.name)"
+      @click="goOnePage(data.name.common)"
     >
       <div class="box">
-        <div class="img-wrap">
+        <div class="img-wrap" v-if="data.flags && data.flags.svg">
           <img :src="data.flags.svg" alt="img" class="flag-wrap" />
         </div>
         <div class="info-wrap">
-          <h1>
+          <h1 v-if="data.name && data.name.official">
             <strong> {{ data.name.official }} </strong>
           </h1>
-          <p>
+          <p v-if="data.population">
             <strong>Population:</strong>
-            {{ data.population.toLocaleString("en") }}
+            {{ data.population.toLocaleString("en-GB") }}
           </p>
-          <p><strong>Region:</strong> {{ data.region }}</p>
+          <p v-if="data.region"><strong>Region:</strong> {{ data.region }}</p>
           <p v-if="data.capital">
             <strong>Capital:</strong> {{ data.capital[0] }}
           </p>
@@ -63,7 +63,7 @@ export default {
     goOnePage(countryName) {
       const myStorage = window.localStorage;
       myStorage.setItem("country", countryName);
-      this.$router.push({ path: `country/${countryName}` });
+      this.$router.push({ path: `name/${countryName}` });
     },
   },
   mounted() {
@@ -91,6 +91,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.box:hover {
+  cursor: pointer;
 }
 .img-wrap {
   height: 63%;

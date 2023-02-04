@@ -11,7 +11,7 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/country/:name',
+    path: '/name/:name',
     name: 'OneCountryPage',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
